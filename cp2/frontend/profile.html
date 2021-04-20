@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+</head>
+<body>
+    <!-- Navigation section -->
+    <div class="nav-container">
+        <header>
+            <h2>Biblior</h2>
+            <nav>
+                <ul class="nav-items">
+                    <li><a href="/home/">Home</a></li>
+                    <li><a href="/home/#services">Service</a></li>
+                    <li><a href="/home/#supportedLanguages">Languages</a></li>
+                    <!-- <li><a href="#">About</a></li> -->
+                </ul>
+            </nav>
+            <button>Log out</button>
+        </header>
+
+        <div class="profile-info">
+            <h3>Profile Information</h3>
+            <p class="name"></p>
+            <p class="email"></p>
+        </div>
+
+        <div class="history-info">
+            <h3>History</h3>
+            <ul class="items">
+                <li>Book</li>
+                <li>Date</li>
+                <li>Original Language</li>
+                <li>Translated Language</li>
+            </ul>
+            {% for book in books %}
+                <ul class="items">
+                    <li>{{book.book_name}}</li>
+                    <li>{{book.created_date}}</li>
+                    <li>{{book.input_language}}</li>
+                    <li>{{book.output_language}}</li>                
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

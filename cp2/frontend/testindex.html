@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblior</title>
+    <script src="https://kit.fontawesome.com/75e13868b9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'textstyle.css' %}">
+
+    
+</head>
+<body>
+    <div class="main-container">
+        
+        <!-- Navigation section -->
+        <div class="nav-container">
+            <header>
+                <h2>Biblior</h2>
+                <nav>
+                    <ul class="nav-items">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#services">Service</a></li>
+                        <li><a href="#supportedLanguages">Languages</a></li>
+                        <!-- <li><a href="#">About</a></li> -->
+                    </ul>
+                </nav>
+                <div>
+                
+                    {% if user.is_authenticated %}
+                    <a href="profile.html" class="account">My account</a>
+                    <form class="signup" action="logout/" method="POST"> 
+                        {% csrf_token %}
+                        <button class="signup" type="submit" id="logout">LOGOUT</button>
+                    </form>
+                    {% else %}
+                    <button class="login" id="btnLogin">Login</button>
+                    <button class="signup" id="btnSignup">Sign up</button>
+                    {% endif %}
+                </div>
+            </header>
+        </div>
+
+        <!-- Login -->
+        <div class="login-container" id="login-container">
+            <form class="loginform" action="login/" method="POST">
+                {% csrf_token %}
+                <!-- <button class="close">&times;</button> -->
+                <h2 class="title">Log in</h2>
+                <input  placeholder="username" id="loginemail" name="login_username" required/>
+                <input type="password" placeholder="Password" id="loginpassword" name="login_password" required/> 
+                <p class="fp">Forgot your password?</p>
+                <div class="btns">
+                    <button class="LogIn" type="submit" id="login">Log in</button>
+                    <button class="close" type="button" id="closeLogin">Close</button>
+                </div>   
+            </form>
+        </div>
+
+        <!-- Signup -->
+        <div class="signup-container" id="signup-container">
+            <form class="signupform" method="POST" action="signup/">
+                {% csrf_token %}
+                <!-- <button class="close">&times;</button> -->
+                <h2 class="title">Create Account</h2>
+                <input type="text" placeholder="Name" name="name" required/>
+                <input  placeholder="Username" id="semail" name="reg_username" required/>
+                <input type="password" placeholder="Password" id="spassword" name="reg_password" required/> 
+                <input type="password" placeholder="Confirm Password" id="spassword2" name="reg_confirm_password" required/>
+                <div class="btn">
+                    <button class="SignUp" onclick="signup()">Sign up</button>   
+                    <button class="close" type="button" id="closeSignup">Close</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Home section -->
+        <div>
+            {% for message in messages %}
+            <h3>{{message}}</h3>
+            {% endfor %}
+        </div>
+        <div class="home">
+            <div>
+                <p>Translate words, phrases, sentences, documents or even books freely over top 10 spoken languages in the world. Search for already translated books here.
+                </p>
+                <input type="text" class="search" placeholder="Search Books">
+            </div>
+            <img src="{% static './img/hero.svg' %}" alt="hero">
+        </div>
+
+        
+       <!-- <script type="text/javascript">
+            $(document).ready(function() {
+                window.onload = function() {
+                    var outputText = "{{output_para}}";
+                    if(outputText.length > 0) {
+                        document.getElementById("#content-1").focus();
+                    }
+                };  
+            }); 
+        </script>
+        -->
+
+
+        <!-- Service section -->
+        <div class="services" id="services">
+            
+            <!-- <div class="toogle"> -->
+                <p class="label" id="translateParagraph">Translate Paragraph</p>
+                <!-- <button class="btnpdf btn" >Translate PDF</button> -->
+            <!-- </div> -->
+            <form method="POST" action="/home/" class="service-container content-1" id="content-1">
+                {% csrf_token %}
+                <div class="dropdown">
+                    <div class="input">
+                        <label for="inputlang" class="in" >Input language : </label>
+                        <!--<select name="inputlang" id="input_lang">-->
+                        <select name="inputlang" id="input_lang">
+                            <option value="zh-cn">Chinese</option>
+                            <option value="es">Spanish</option>
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="ar">Arabic</option>
+                            <option value="bn">Bengali</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="ru">Russian</option>
+                            <option value="ja">Japanese</option>
+                            <option value="id">Indonesian</option>
+                        </select>
+                    </div>
+                    <div class="output">
+                        <label for="outputlang" class="out" >Output language : </label>
+                        <select name="outputlang" id="output_lang">
+                            <option value="zh-cn">Chinese</option>
+                            <option value="es">Spanish</option>
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="ar">Arabic</option>
+                            <option value="bn">Bangali</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="ru">Russian</option>
+                            <option value="ja">Japanese</option>
+                            <option value="id">Indonesian</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <textarea rows="12" cols="64" name="input_para" placeholder="Enter Text" id="{{ input_para }}">{{input_para}}</textarea>
+                    <textarea rows="12" cols="64" name="output_para" id="output_para">{{output_para}}</textarea>
+                </div>
+                <button class="btntranslate" type="submit" name="translate" id="pTranslate">Translate</button>
+            </form>
+            <p class="label">Translate PDF</p>
+            <form method="POST" action="book/" class="service-container content-2" id="content-2" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="dropdown">
+                    <div class="input">
+                        <label for="bookinputlang" class="in">Input language : </label>
+                        <select name="pdfInputLang" id="pdfInputLang">
+                            <option value="zh-cn">Chinese</option>
+                            <option value="es">Spanish</option>
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="ar">Arabic</option>
+                            <option value="bn">Bengali</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="ru">Russian</option>
+                            <option value="ja">Japanese</option>
+                            <option value="id">Indonesian</option>
+                        </select>
+                    </div>
+                    <div class="output">
+                        <label for="bookoutputlang" class="out">Output language : </label>
+                        <select name="pdfOutputLang" id="pdfOutputLang">
+                            <option value="zh-cn">Chinese</option>
+                            <option value="es">Spanish</option>
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="ar">Arabic</option>
+                            <option value="bn">Bengali</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="ru">Russian</option>
+                            <option value="ja">Japanese</option>
+                            <option value="id">Indonesian</option>
+                        </select>
+                    </div>
+                    <div class="privacy">
+                        Private
+                        <label class="switch">
+                            <input type="checkbox" name="isPrivate" id="isPrivate">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="upload">
+                    <p>Browse PDF File</p>
+                    <input type="file" name="myFile" id="myFile" class="myfile">
+                    <!-- <img src="/img/upload.svg" alt="" class="imgupload"> -->
+                    
+                </div>
+                <button class="btndownload" type="submit" id="bookTranslate">Translate</button>
+
+                <!-- <div class="rb">
+                    <p>Recommended Books</p>
+                    <textarea rows="5" cols="103" name="para"></textarea>
+                </div> -->
+            </form>
+        </div>
+
+        <!-- Total languages -->
+        <div class="languages" id="supportedLanguages">
+            <img src="{% static './img/languages.svg' %}" alt="languages">
+            <p><span>Supported Languages</span><br><br>Chinese, Spanish, English, Hindi, Arabic, Bengali, Portuguese, Russian, Japanese, Indonesian</p>
+        </div>
+    </div>
+    <script src="{% static 'testmain.js' %}"></script>
+
+    
+    
+    
+
+</body>
+</html>
