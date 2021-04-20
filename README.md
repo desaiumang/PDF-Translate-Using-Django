@@ -1,6 +1,18 @@
 # PDF-Translate-Using-Django
 This project was meant for hands-on learning of Django MVC framework. It reads the texts from a PDF and translates it into the selected language. The original PDF and the translated PDF are stored on the server in media directory. 
 
+![Screenshot (52)](https://user-images.githubusercontent.com/39291426/115433514-4892c500-a225-11eb-9099-2c5723e495ee.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+![Screenshot (55)](https://user-images.githubusercontent.com/39291426/115433766-87c11600-a225-11eb-9b63-fc848c2df472.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+![Screenshot (54)](https://user-images.githubusercontent.com/39291426/115433789-8db6f700-a225-11eb-8d6a-56328bd295b4.png)
+
+
+
 # Database Details
 This project uses postgresql as Database. Create a database named "cp2" with username "postgres" and password "1234". Run the following script 
 
