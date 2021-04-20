@@ -1,5 +1,5 @@
 # PDF-Translate-Using-Django
-This project was meant for hands-on learning of Django MVC framework. It reads the texts from a PDF and translates it into the selected language. The original PDF and the translated PDF are stored on the server in media directory. 
+This project was meant for hands-on learning of Django MVC framework. It reads the texts from a PDF and translates it into the selected language. The original PDF and the translated PDF are stored on the server in media directory. Keep scrolling to know how to setup this project.
 
 ![Screenshot (52)](https://user-images.githubusercontent.com/39291426/115433514-4892c500-a225-11eb-9099-2c5723e495ee.png)
 
