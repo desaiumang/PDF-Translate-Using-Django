@@ -29,7 +29,8 @@ This project uses postgresql as Database. Create a database named "cp2" with use
 # Setting up the Project
 Clone the project, then open cp2 directory. Run the following commands. DO NOT RUN "python manage.py makemigrations" command. I'll keep updating the list for all the necessary commands for installing pytorch and other necessary library's for this project.
 1. python manage.py migrate
-2. ###Yet To update the commands.
+2. python manage.py createsuperuser
+3. ###Yet To update the commands.
 
 # Run the project
 To run the server you can simply use the following command.
